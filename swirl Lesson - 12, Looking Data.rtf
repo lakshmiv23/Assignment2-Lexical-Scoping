@@ -1,0 +1,358 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.14393}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 R_ Programm_Johns Hopkins University  -  Lakshmi Vaka\par
+swirl Lesson - 12, Looking Data\par
+\par
+| Please choose a course, or type 0 to exit swirl.\par
+1: R Programming\par
+2: Take me to the swirl course repository!\par
+Selection: 1\par
+| Please choose a lesson, or type 0 to return to course menu.\par
+ 1: Basic Building Blocks      2: Workspace and Files     \par
+ 3: Sequences of Numbers       4: Vectors                 \par
+ 5: Missing Values             6: Subsetting Vectors      \par
+ 7: Matrices and Data Frames   8: Logic                   \par
+ 9: Functions                 10: lapply and sapply       \par
+11: vapply and tapply         12: Looking at Data         \par
+13: Simulation                14: Dates and Times         \par
+15: Base Graphics             \par
+Selection: 12\par
+  |                                                          |   0%\par
+| Whenever you're working with a new dataset, the first thing you\par
+| should do is look at it! What is the format of the data? What are\par
+| the dimensions? What are the variable names? How are the\par
+| variables stored? Are there missing data? Are there any flaws in\par
+| the data?\par
+...\par
+  |==                                                        |   4%\par
+| This lesson will teach you how to answer these questions and more\par
+| using R's built-in functions. We'll be using a dataset\par
+| constructed from the United States Department of Agriculture's\par
+| PLANTS Database ({{\field{\*\fldinst{HYPERLINK http://plants.usda.gov/adv_search.html }}{\fldrslt{http://plants.usda.gov/adv_search.html\ul0\cf0}}}}\f0\fs22 ).\par
+...\par
+  |=====                                                     |   8%\par
+| I've stored the data for you in a variable called plants. Type\par
+| ls() to list the variables in your workspace, among which should\par
+| be plants.\par
+> ls()\par
+ [1] "%p%"             "beer"            "beer.counts"    \par
+ [4] "boring_function" "cls_list"        "cls_vect"       \par
+ [7] "cnames"          "data"            "evaluate"       \par
+[10] "flag_colors"     "flag_shapes"     "flags"          \par
+[13] "ints"            "mad_libs"        "my_char"        \par
+[16] "my_data"         "my_div"          "my_matrix"      \par
+[19] "my_matrix2"      "my_mean"         "my_na"          \par
+[22] "my_name"         "my_seq"          "my_sqrt"        \par
+[25] "my_vector"       "num_vect"        "old.dir"        \par
+[28] "patients"        "plants"          "remainder"      \par
+[31] "sals"            "scores"          "shape_mat"      \par
+[34] "telegram"        "tf"              "unique_vals"    \par
+[37] "vect"            "vect2"           "viewinfo"       \par
+[40] "x"               "y"               "z"              \par
+| That's the answer I was looking for.\par
+  |=======                                                   |  12%\par
+| Let's begin by checking the class of the plants variable with\par
+| class(plants). This will give us a clue as to the overall\par
+| structure of the data.\par
+> class(plants)\par
+[1] "data.frame"\par
+| All that hard work is paying off!\par
+  |=========                                                 |  16%\par
+| It's very common for data to be stored in a data frame. It is the\par
+| default class for data read into R using functions like\par
+| read.csv() and read.table(), which you'll learn about in another\par
+| lesson.\par
+...\par
+  |============                                              |  20%\par
+| Since the dataset is stored in a data frame, we know it is\par
+| rectangular. In other words, it has two dimensions (rows and\par
+| columns) and fits neatly into a table or spreadsheet. Use\par
+| dim(plants) to see exactly how many rows and columns we're\par
+| dealing with.\par
+> dim(plants)\par
+[1] 5166   10\par
+| All that practice is paying off!\par
+  |==============                                            |  24%\par
+| The first number you see (5166) is the number of rows\par
+| (observations) and the second number (10) is the number of\par
+| columns (variables).\par
+...\par
+  |================                                          |  28%\par
+| You can also use nrow(plants) to see only the number of rows. Try\par
+| it out.\par
+> nrow(plants)\par
+[1] 5166\par
+| Nice work!\par
+  |===================                                       |  32%\par
+| ... And ncol(plants) to see only the number of columns.\par
+> ncol(plants)\par
+[1] 10\par
+| Keep working like that and you'll get there!\par
+  |=====================                                     |  36%\par
+| If you are curious as to how much space the dataset is occupying\par
+| in memory, you can use object.size(plants).\par
+> object.size(plants)\par
+644232 bytes\par
+| All that practice is paying off!\par
+  |=======================                                   |  40%\par
+| Now that we have a sense of the shape and size of the dataset,\par
+| let's get a feel for what's inside. names(plants) will return a\par
+| character vector of column (i.e. variable) names. Give it a shot.\par
+> names(plants)\par
+ [1] "Scientific_Name"      "Duration"            \par
+ [3] "Active_Growth_Period" "Foliage_Color"       \par
+ [5] "pH_Min"               "pH_Max"              \par
+ [7] "Precip_Min"           "Precip_Max"          \par
+ [9] "Shade_Tolerance"      "Temp_Min_F"          \par
+| Keep working like that and you'll get there!\par
+  |==========================                                |  44%\par
+| We've applied fairly descriptive variable names to this dataset,\par
+| but that won't always be the case. A logical next step is to peek\par
+| at the actual data. However, our dataset contains over 5000\par
+| observations (rows), so it's impractical to view the whole thing\par
+| all at once.\par
+...\par
+  |============================                              |  48%\par
+| The head() function allows you to preview the top of the dataset.\par
+| Give it a try with only one argument.\par
+> head(plants)\par
+               Scientific_Name          Duration\par
+1                  Abelmoschus              <NA>\par
+2       Abelmoschus esculentus Annual, Perennial\par
+3                        Abies              <NA>\par
+4               Abies balsamea         Perennial\par
+5 Abies balsamea var. balsamea         Perennial\par
+6                     Abutilon              <NA>\par
+  Active_Growth_Period Foliage_Color pH_Min pH_Max Precip_Min\par
+1                 <NA>          <NA>     NA     NA         NA\par
+2                 <NA>          <NA>     NA     NA         NA\par
+3                 <NA>          <NA>     NA     NA         NA\par
+4    Spring and Summer         Green      4      6         13\par
+5                 <NA>          <NA>     NA     NA         NA\par
+6                 <NA>          <NA>     NA     NA         NA\par
+  Precip_Max Shade_Tolerance Temp_Min_F\par
+1         NA            <NA>         NA\par
+2         NA            <NA>         NA\par
+3         NA            <NA>         NA\par
+4         60        Tolerant        -43\par
+5         NA            <NA>         NA\par
+6         NA            <NA>         NA\par
+| All that practice is paying off!\par
+  |==============================                            |  52%\par
+| Take a minute to look through and understand the output above.\par
+| Each row is labeled with the observation number and each column\par
+| with the variable name. Your screen is probably not wide enough\par
+| to view all 10 columns side-by-side, in which case R displays as\par
+| many columns as it can on each line before continuing on the\par
+| next.\par
+...\par
+  |================================                          |  56%\par
+| By default, head() shows you the first six rows of the data. You\par
+| can alter this behavior by passing as a second argument the\par
+| number of rows you'd like to view. Use head() to preview the\par
+| first 10 rows of plants.\par
+> head(plants, n = 10)\par
+                     Scientific_Name          Duration\par
+1                        Abelmoschus              <NA>\par
+2             Abelmoschus esculentus Annual, Perennial\par
+3                              Abies              <NA>\par
+4                     Abies balsamea         Perennial\par
+5       Abies balsamea var. balsamea         Perennial\par
+6                           Abutilon              <NA>\par
+7               Abutilon theophrasti            Annual\par
+8                             Acacia              <NA>\par
+9                  Acacia constricta         Perennial\par
+10 Acacia constricta var. constricta         Perennial\par
+   Active_Growth_Period Foliage_Color pH_Min pH_Max Precip_Min\par
+1                  <NA>          <NA>     NA     NA         NA\par
+2                  <NA>          <NA>     NA     NA         NA\par
+3                  <NA>          <NA>     NA     NA         NA\par
+4     Spring and Summer         Green      4    6.0         13\par
+5                  <NA>          <NA>     NA     NA         NA\par
+6                  <NA>          <NA>     NA     NA         NA\par
+7                  <NA>          <NA>     NA     NA         NA\par
+8                  <NA>          <NA>     NA     NA         NA\par
+9     Spring and Summer         Green      7    8.5          4\par
+10                 <NA>          <NA>     NA     NA         NA\par
+   Precip_Max Shade_Tolerance Temp_Min_F\par
+1          NA            <NA>         NA\par
+2          NA            <NA>         NA\par
+3          NA            <NA>         NA\par
+4          60        Tolerant        -43\par
+5          NA            <NA>         NA\par
+6          NA            <NA>         NA\par
+7          NA            <NA>         NA\par
+8          NA            <NA>         NA\par
+9          20      Intolerant        -13\par
+10         NA            <NA>         NA\par
+| You are really on a roll!\par
+  |===================================                       |  60%\par
+| The same applies for using tail() to preview the end of the\par
+| dataset. Use tail() to view the last 15 rows.\par
+> tail(plants, n = 15)\par
+                      Scientific_Name  Duration\par
+5152                          Zizania      <NA>\par
+5153                 Zizania aquatica    Annual\par
+5154   Zizania aquatica var. aquatica    Annual\par
+5155                Zizania palustris    Annual\par
+5156 Zizania palustris var. palustris    Annual\par
+5157                      Zizaniopsis      <NA>\par
+5158             Zizaniopsis miliacea Perennial\par
+5159                            Zizia      <NA>\par
+5160                     Zizia aptera Perennial\par
+5161                      Zizia aurea Perennial\par
+5162                 Zizia trifoliata Perennial\par
+5163                          Zostera      <NA>\par
+5164                   Zostera marina Perennial\par
+5165                           Zoysia      <NA>\par
+5166                  Zoysia japonica Perennial\par
+     Active_Growth_Period Foliage_Color pH_Min pH_Max Precip_Min\par
+5152                 <NA>          <NA>     NA     NA         NA\par
+5153               Spring         Green    6.4    7.4         30\par
+5154                 <NA>          <NA>     NA     NA         NA\par
+5155                 <NA>          <NA>     NA     NA         NA\par
+5156                 <NA>          <NA>     NA     NA         NA\par
+5157                 <NA>          <NA>     NA     NA         NA\par
+5158    Spring and Summer         Green    4.3    9.0         35\par
+5159                 <NA>          <NA>     NA     NA         NA\par
+5160                 <NA>          <NA>     NA     NA         NA\par
+5161                 <NA>          <NA>     NA     NA         NA\par
+5162                 <NA>          <NA>     NA     NA         NA\par
+5163                 <NA>          <NA>     NA     NA         NA\par
+5164                 <NA>          <NA>     NA     NA         NA\par
+5165                 <NA>          <NA>     NA     NA         NA\par
+5166                 <NA>          <NA>     NA     NA         NA\par
+     Precip_Max Shade_Tolerance Temp_Min_F\par
+5152         NA            <NA>         NA\par
+5153         50      Intolerant         32\par
+5154         NA            <NA>         NA\par
+5155         NA            <NA>         NA\par
+5156         NA            <NA>         NA\par
+5157         NA            <NA>         NA\par
+5158         70      Intolerant         12\par
+5159         NA            <NA>         NA\par
+5160         NA            <NA>         NA\par
+5161         NA            <NA>         NA\par
+5162         NA            <NA>         NA\par
+5163         NA            <NA>         NA\par
+5164         NA            <NA>         NA\par
+5165         NA            <NA>         NA\par
+5166         NA            <NA>         NA\par
+| Excellent job!\par
+  |=====================================                     |  64%\par
+| After previewing the top and bottom of the data, you probably\par
+| noticed lots of NAs, which are R's placeholders for missing\par
+| values. Use summary(plants) to get a better feel for how each\par
+| variable is distributed and how much of the dataset is missing.\par
+> summary(plants)\par
+                     Scientific_Name              Duration   \par
+ Abelmoschus                 :   1   Perennial        :3031  \par
+ Abelmoschus esculentus      :   1   Annual           : 682  \par
+ Abies                       :   1   Annual, Perennial: 179  \par
+ Abies balsamea              :   1   Annual, Biennial :  95  \par
+ Abies balsamea var. balsamea:   1   Biennial         :  57  \par
+ Abutilon                    :   1   (Other)          :  92  \par
+ (Other)                     :5160   NA's             :1030  \par
+           Active_Growth_Period      Foliage_Color      pH_Min     \par
+ Spring and Summer   : 447      Dark Green  :  82   Min.   :3.000  \par
+ Spring              : 144      Gray-Green  :  25   1st Qu.:4.500  \par
+ Spring, Summer, Fall:  95      Green       : 692   Median :5.000  \par
+ Summer              :  92      Red         :   4   Mean   :4.997  \par
+ Summer and Fall     :  24      White-Gray  :   9   3rd Qu.:5.500  \par
+ (Other)             :  30      Yellow-Green:  20   Max.   :7.000  \par
+ NA's                :4334      NA's        :4334   NA's   :4327   \par
+     pH_Max         Precip_Min      Precip_Max    \par
+ Min.   : 5.100   Min.   : 4.00   Min.   : 16.00  \par
+ 1st Qu.: 7.000   1st Qu.:16.75   1st Qu.: 55.00  \par
+ Median : 7.300   Median :28.00   Median : 60.00  \par
+ Mean   : 7.344   Mean   :25.57   Mean   : 58.73  \par
+ 3rd Qu.: 7.800   3rd Qu.:32.00   3rd Qu.: 60.00  \par
+ Max.   :10.000   Max.   :60.00   Max.   :200.00  \par
+ NA's   :4327     NA's   :4338    NA's   :4338    \par
+     Shade_Tolerance   Temp_Min_F    \par
+ Intermediate: 242   Min.   :-79.00  \par
+ Intolerant  : 349   1st Qu.:-38.00  \par
+ Tolerant    : 246   Median :-33.00  \par
+ NA's        :4329   Mean   :-22.53  \par
+                     3rd Qu.:-18.00  \par
+                     Max.   : 52.00  \par
+                     NA's   :4328    \par
+| All that practice is paying off!\par
+  |=======================================                   |  68%\par
+| summary() provides different output for each variable, depending\par
+| on its class. For numeric data such as Precip_Min, summary()\par
+| displays the minimum, 1st quartile, median, mean, 3rd quartile,\par
+| and maximum. These values help us understand how the data are\par
+| distributed.\par
+...\par
+  |==========================================                |  72%\par
+| For categorical variables (called 'factor' variables in R),\par
+| summary() displays the number of times each value (or 'level')\par
+| occurs in the data. For example, each value of Scientific_Name\par
+| only appears once, since it is unique to a specific plant. In\par
+| contrast, the summary for Duration (also a factor variable) tells\par
+| us that our dataset contains 3031 Perennial plants, 682 Annual\par
+| plants, etc.\par
+...\par
+  |============================================              |  76%\par
+| You can see that R truncated the summary for Active_Growth_Period\par
+| by including a catch-all category called 'Other'. Since it is a\par
+| categorical/factor variable, we can see how many times each value\par
+| actually occurs in the data with\par
+| table(plants$Active_Growth_Period).\par
+> table(plants$Active_Growth_Period)\par
+Fall, Winter and Spring                  Spring \par
+                     15                     144 \par
+        Spring and Fall       Spring and Summer \par
+                     10                     447 \par
+   Spring, Summer, Fall                  Summer \par
+                     95                      92 \par
+        Summer and Fall              Year Round \par
+                     24                       5 \par
+| All that hard work is paying off!\par
+  |==============================================            |  80%\par
+| Each of the functions we've introduced so far has its place in\par
+| helping you to better understand the structure of your data.\par
+| However, we've left the best for last....\par
+...\par
+  |=================================================         |  84%\par
+| Perhaps the most useful and concise function for understanding\par
+| the *str*ucture of your data is str(). Give it a try now.\par
+> str(plants)\par
+'data.frame': 5166 obs. of  10 variables:\par
+ $ Scientific_Name     : Factor w/ 5166 levels "Abelmoschus",..: 1 2 3 4 5 6 7 8 9 10 ...\par
+ $ Duration            : Factor w/ 8 levels "Annual","Annual, Biennial",..: NA 4 NA 7 7 NA 1 NA 7 7 ...\par
+ $ Active_Growth_Period: Factor w/ 8 levels "Fall, Winter and Spring",..: NA NA NA 4 NA NA NA NA 4 NA ...\par
+ $ Foliage_Color       : Factor w/ 6 levels "Dark Green","Gray-Green",..: NA NA NA 3 NA NA NA NA 3 NA ...\par
+ $ pH_Min              : num  NA NA NA 4 NA NA NA NA 7 NA ...\par
+ $ pH_Max              : num  NA NA NA 6 NA NA NA NA 8.5 NA ...\par
+ $ Precip_Min          : int  NA NA NA 13 NA NA NA NA 4 NA ...\par
+ $ Precip_Max          : int  NA NA NA 60 NA NA NA NA 20 NA ...\par
+ $ Shade_Tolerance     : Factor w/ 3 levels "Intermediate",..: NA NA NA 3 NA NA NA NA 2 NA ...\par
+ $ Temp_Min_F          : int  NA NA NA -43 NA NA NA NA -13 NA ...\par
+| Keep up the great work!\par
+  |===================================================       |  88%\par
+| The beauty of str() is that it combines many of the features of\par
+| the other functions you've already seen, all in a concise and\par
+| readable format. At the very top, it tells us that the class of\par
+| plants is 'data.frame' and that it has 5166 observations and 10\par
+| variables. It then gives us the name and class of each variable,\par
+| as well as a preview of its contents.\par
+...\par
+  |=====================================================     |  92%\par
+| str() is actually a very general function that you can use on\par
+| most objects in R. Any time you want to understand the structure\par
+| of something (a dataset, function, etc.), str() is a good place\par
+| to start.\par
+...\par
+  |========================================================  |  96%\par
+| In this lesson, you learned how to get a feel for the structure\par
+| and contents of a new dataset using a collection of simple and\par
+| useful functions. Taking the time to do this upfront can save you\par
+| time and frustration later on in your analysis.\par
+...\par
+  |==========================================================| 100%\par
+  \par
+}
+ 

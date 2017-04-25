@@ -1,0 +1,384 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.14393}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 Swirl Lesson 8, Logic_Program_R _Data Science        Johns Hopkins University\par
+| Please \par
+choose a course, or type 0 to exit swirl.\par
+1: R Programming\par
+2: Take me to the swirl course repository!\par
+Selection: 1\par
+| Please choose a lesson, or type 0 to return to course menu.\par
+ 1: Basic Building Blocks      2: Workspace and Files     \par
+ 3: Sequences of Numbers       4: Vectors                 \par
+ 5: Missing Values             6: Subsetting Vectors      \par
+ 7: Matrices and Data Frames   8: Logic                   \par
+ 9: Functions                 10: lapply and sapply       \par
+11: vapply and tapply         12: Looking at Data         \par
+13: Simulation                14: Dates and Times         \par
+15: Base Graphics             \par
+Selection: 8\par
+  |                                                          |   0%\par
+| This lesson is meant to be a short introduction to logical\par
+| operations in R.\par
+...\par
+  |=                                                         |   2%\par
+| There are two logical values in R, also called boolean values.\par
+| They are TRUE and FALSE. In R you can construct logical\par
+| expressions which will evaluate to either TRUE or FALSE.\par
+...\par
+  |==                                                        |   4%\par
+| Many of the questions in this lesson will involve evaluating\par
+| logical expressions. It may be useful to open up a second R\par
+| terminal where you can experiment with some of these expressions.\par
+...\par
+  |===                                                       |   6%\par
+| Creating logical expressions requires logical operators. You're\par
+| probably familiar with arithmetic operators like `+`, `-`, `*`,\par
+| and `/`. The first logical operator we are going to discuss is\par
+| the equality operator, represented by two equals signs `==`. Use\par
+| the equality operator below to find out if TRUE is equal to TRUE.\par
+> TRUE == TRUE\par
+[1] TRUE\par
+| You're the best!\par
+  |====                                                      |   8%\par
+| Just like arithmetic, logical expressions can be grouped by\par
+| parenthesis so that the entire expression (TRUE == TRUE) == TRUE\par
+| evaluates to TRUE.\par
+...\par
+  |======                                                    |  10%\par
+| To test out this property, try evaluating (FALSE == TRUE) ==\par
+| FALSE .\par
+> (FALSE == TRUE) == FALSE\par
+[1] TRUE\par
+| You got it!\par
+  |=======                                                   |  12%\par
+| The equality operator can also be used to compare numbers. Use\par
+| `==` to see if 6 is equal to 7.\par
+> 6 == 7\par
+[1] FALSE\par
+| You got it right!\par
+  |========                                                  |  13%\par
+| The previous expression evaluates to FALSE because 6 is less than\par
+| 7. Thankfully, there are inequality operators that allow us to\par
+| test if a value is less than or greater than another value.\par
+...\par
+  |=========                                                 |  15%\par
+| The less than operator `<` tests whether the number on the left\par
+| side of the operator (called the left operand) is less than the\par
+| number on the right side of the operator (called the right\par
+| operand). Write an expression to test whether 6 is less than 7.\par
+> 6<7\par
+[1] TRUE\par
+| Keep working like that and you'll get there!\par
+  |==========                                                |  17%\par
+| There is also a less-than-or-equal-to operator `<=` which tests\par
+| whether the left operand is less than or equal to the right\par
+| operand. Write an expression to test whether 10 is less than or\par
+| equal to 10.\par
+> 10<=10\par
+[1] TRUE\par
+| Nice work!\par
+  |===========                                               |  19%\par
+| Keep in mind that there are the corresponding greater than `>`\par
+| and greater-than-or-equal-to `>=` operators.\par
+...\par
+  |============                                              |  21%\par
+| Which of the following evaluates to FALSE?\par
+1: 9 >= 10\par
+2: 6 < 8\par
+3: 7 == 7\par
+4: 0 > -36\par
+Selection: 1\par
+| You are amazing!\par
+  |=============                                             |  23%\par
+| Which of the following evaluates to TRUE?\par
+1: 7 == 9\par
+2: 9 >= 10\par
+3: 57 < 8\par
+4: -6 > -7\par
+Selection: 4\par
+| All that hard work is paying off!\par
+  |==============                                            |  25%\par
+| The next operator we will discuss is the 'not equals' operator\par
+| represented by `!=`. Not equals tests whether two values are\par
+| unequal, so TRUE != FALSE evaluates to TRUE. Like the equality\par
+| operator, `!=` can also be used with numbers. Try writing an\par
+| expression to see if 5 is not equal to 7.\par
+> 5 != 7\par
+[1] TRUE\par
+| You nailed it! Good job!\par
+  |================                                          |  27%\par
+| In order to negate boolean expressions you can use the NOT\par
+| operator. An exclamation point `!` will cause !TRUE (say: not\par
+| true) to evaluate to FALSE and !FALSE (say: not false) to\par
+| evaluate to TRUE. Try using the NOT operator and the equals\par
+| operator to find the opposite of whether 5 is equal to 7.\par
+> !(5==7)\par
+[1] TRUE\par
+| Excellent work!\par
+  |=================                                         |  29%\par
+| Let's take a moment to review. The equals operator `==` tests\par
+| whether two boolean values or numbers are equal, the not equals\par
+| operator `!=` tests whether two boolean values or numbers are\par
+| unequal, and the NOT operator `!` negates logical expressions so\par
+| that TRUE expressions become FALSE and FALSE expressions become\par
+| TRUE.\par
+...\par
+  |==================                                        |  31%\par
+| Which of the following evaluates to FALSE?\par
+1: 9 < 10\par
+2: !FALSE\par
+3: 7 != 8\par
+4: !(0 >= -1)\par
+Selection: 4\par
+| You got it!\par
+  |===================                                       |  33%\par
+| What do you think the following expression will evaluate to?:\par
+| (TRUE != FALSE) == !(6 == 7)\par
+1: %>%\par
+2: TRUE\par
+3: FALSE\par
+4: Can there be objective truth when programming?\par
+Selection: 2\par
+| All that hard work is paying off!\par
+  |====================                                      |  35%\par
+| At some point you may need to examine relationships between\par
+| multiple logical expressions. This is where the AND operator and\par
+| the OR operator come in.\par
+...\par
+  |=====================                                     |  37%\par
+| Let's look at how the AND operator works. There are two AND\par
+| operators in R, `&` and `&&`. Both operators work similarly, if\par
+| the right and left operands of AND are both TRUE the entire\par
+| expression is TRUE, otherwise it is FALSE. For example, TRUE &\par
+| TRUE evaluates to TRUE. Try typing FALSE & FALSE to how it is\par
+| evaluated.\par
+> FALSE & FALSE\par
+[1] FALSE\par
+| All that practice is paying off!\par
+  |======================                                    |  38%\par
+| You can use the `&` operator to evaluate AND across a vector. The\par
+| `&&` version of AND only evaluates the first member of a vector.\par
+| Let's test both for practice. Type the expression TRUE & c(TRUE,\par
+| FALSE, FALSE).\par
+> TRUE & c(TRUE,FALSE,FALSE)\par
+[1]  TRUE FALSE FALSE\par
+| That's correct!\par
+  |=======================                                   |  40%\par
+| What happens in this case is that the left operand `TRUE` is\par
+| recycled across every element in the vector of the right operand.\par
+| This is the equivalent statement as c(TRUE, TRUE, TRUE) & c(TRUE,\par
+| FALSE, FALSE).\par
+...\par
+  |=========================                                 |  42%\par
+| Now we'll type the same expression except we'll use the `&&`\par
+| operator. Type the expression TRUE && c(TRUE, FALSE, FALSE).\par
+> TRUE && c(TRUE,FALSE,FALSE)\par
+[1] TRUE\par
+| You are doing so well!\par
+  |==========================                                |  44%\par
+| In this case, the left operand is only evaluated with the first\par
+| member of the right operand (the vector). The rest of the\par
+| elements in the vector aren't evaluated at all in this\par
+| expression.\par
+...\par
+  |===========================                               |  46%\par
+| The OR operator follows a similar set of rules. The `|` version\par
+| of OR evaluates OR across an entire vector, while the `||`\par
+| version of OR only evaluates the first member of a vector.\par
+...\par
+  |============================                              |  48%\par
+| An expression using the OR operator will evaluate to TRUE if the\par
+| left operand or the right operand is TRUE. If both are TRUE, the\par
+| expression will evaluate to TRUE, however if neither are TRUE,\par
+| then the expression will be FALSE.\par
+...\par
+  |=============================                             |  50%\par
+| Let's test out the vectorized version of the OR operator. Type\par
+| the expression TRUE | c(TRUE, FALSE, FALSE).\par
+> TRUE | c(TRUE,FALSE,FALSE)\par
+[1] TRUE TRUE TRUE\par
+| You are quite good my friend!\par
+  |==============================                            |  52%\par
+| Now let's try out the non-vectorized version of the OR operator.\par
+| Type the expression TRUE || c(TRUE, FALSE, FALSE).\par
+> TRUE || c(TRUE,FALSE,FALSE)\par
+[1] TRUE\par
+| You got it right!\par
+  |===============================                           |  54%\par
+| Logical operators can be chained together just like arithmetic\par
+| operators. The expressions: `6 != 10 && FALSE && 1 >= 2` or `TRUE\par
+| || 5 < 9.3 || FALSE` are perfectly normal to see.\par
+...\par
+  |================================                          |  56%\par
+| As you may recall, arithmetic has an order of operations and so\par
+| do logical expressions. All AND operators are evaluated before OR\par
+| operators. Let's look at an example of an ambiguous case. Type: 5\par
+| > 8 || 6 != 8 && 4 > 3.9\par
+> \par
+> 5>8 || 6 != 8 && 4>3.9\par
+[1] TRUE\par
+| You are amazing!\par
+  |=================================                         |  58%\par
+| Let's walk through the order of operations in the above case.\par
+| First the left and right operands of the AND operator are\par
+| evaluated. 6 is not equal 8, 4 is greater than 3.9, therefore\par
+| both operands are TRUE so the resulting expression `TRUE && TRUE`\par
+| evaluates to TRUE. Then the left operand of the OR operator is\par
+| evaluated: 5 is not greater than 8 so the entire expression is\par
+| reduced to FALSE || TRUE. Since the right operand of this\par
+| expression is TRUE the entire expression evaluates to TRUE.\par
+...\par
+  |===================================                       |  60%\par
+| Which one of the following expressions evaluates to TRUE?\par
+1: 99.99 > 100 || 45 < 7.3 || 4 != 4.0\par
+2: TRUE && 62 < 62 && 44 >= 44\par
+3: FALSE || TRUE && FALSE\par
+4: TRUE && FALSE || 9 >= 4 && 3 < 6\par
+Selection: 4\par
+| Excellent work!\par
+  |====================================                      |  62%\par
+| Which one of the following expressions evaluates to FALSE?\par
+1: 6 >= -9 && !(6 > 7) && !(!TRUE)\par
+2: FALSE && 6 >= 6 || 7 >= 8 || 50 <= 49.5\par
+3: !(8 > 4) ||  5 == 5.0 && 7.8 >= 7.79\par
+4: FALSE || TRUE && 6 != 4 || 9 > 4\par
+Selection: 2\par
+| You're the best!\par
+  |=====================================                     |  63%\par
+| Now that you're familiar with R's logical operators you can take\par
+| advantage of a few functions that R provides for dealing with\par
+| logical expressions.\par
+...\par
+  |======================================                    |  65%\par
+| The function isTRUE() takes one argument. If that argument\par
+| evaluates to TRUE, the function will return TRUE. Otherwise, the\par
+| function will return FALSE. Try using this function by typing:\par
+| isTRUE(6 > 4)\par
+> isTRUE(6>4)\par
+[1] TRUE\par
+| Your dedication is inspiring!\par
+  |=======================================                   |  67%\par
+| Which of the following evaluates to TRUE?\par
+1: !isTRUE(4 < 3)\par
+2: !isTRUE(8 != 5)\par
+3: isTRUE(NA)\par
+4: isTRUE(3)\par
+5: isTRUE(!TRUE)\par
+Selection: 1\par
+| Keep working like that and you'll get there!\par
+  |========================================                  |  69%\par
+| The function identical() will return TRUE if the two R objects\par
+| passed to it as arguments are identical. Try out the identical()\par
+| function by typing: identical('twins', 'twins')\par
+> identical('twins', 'twins')\par
+[1] TRUE\par
+| You nailed it! Good job!\par
+  |=========================================                 |  71%\par
+| Which of the following evaluates to TRUE?\par
+1: identical(5 > 4, 3 < 3.1)\par
+2: !identical(7, 7)\par
+3: identical('hello', 'Hello')\par
+4: identical(4, 3.1)\par
+Selection: 1\par
+| That's the answer I was looking for.\par
+  |==========================================                |  73%\par
+| You should also be aware of the xor() function, which takes two\par
+| arguments. The xor() function stands for exclusive OR. If one\par
+| argument evaluates to TRUE and one argument evaluates to FALSE,\par
+| then this function will return TRUE, otherwise it will return\par
+| FALSE. Try out the xor() function by typing: xor(5 == 6, !FALSE)\par
+> xor(5 == 6, !FALSE)\par
+[1] TRUE\par
+| Your dedication is inspiring!\par
+  |============================================              |  75%\par
+| 5 == 6 evaluates to FALSE, !FALSE evaluates to TRUE, so\par
+| xor(FALSE, TRUE) evaluates to TRUE. On the other hand if the\par
+| first argument was changed to 5 == 5 and the second argument was\par
+| unchanged then both arguments would have been TRUE, so xor(TRUE,\par
+| TRUE) would have evaluated to FALSE.\par
+...\par
+  |=============================================             |  77%\par
+| Which of the following evaluates to FALSE?\par
+1: xor(identical(xor, 'xor'), 7 == 7.0)\par
+2: xor(4 >= 9, 8 != 8.0)\par
+3: xor(!!TRUE, !!FALSE)\par
+4: xor(!isTRUE(TRUE), 6 > -1)\par
+Selection: 2\par
+| That's correct!\par
+  |==============================================            |  79%\par
+| For the next few questions, we're going to need to create a\par
+| vector of integers called ints. Create this vector by typing:\par
+| ints <- sample(10)\par
+> ints <- sample(10)\par
+| You got it!\par
+  |===============================================           |  81%\par
+| Now simply display the contents of ints.\par
+> ints\par
+ [1]  7  9  2  8  1  5  3  6 10  4\par
+| All that hard work is paying off!\par
+  |================================================          |  83%\par
+| The vector `ints` is a random sampling of integers from 1 to 10\par
+| without replacement. Let's say we wanted to ask some logical\par
+| questions about contents of ints. If we type ints > 5, we will\par
+| get a logical vector corresponding to whether each element of\par
+| ints is greater than 5. Try typing: ints > 5\par
+> ints>5\par
+ [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE\par
+| That's correct!\par
+  |=================================================         |  85%\par
+| We can use the resulting logical vector to ask other questions\par
+| about ints. The which() function takes a logical vector as an\par
+| argument and returns the indices of the vector that are TRUE. For\par
+| example which(c(TRUE, FALSE, TRUE)) would return the vector c(1,\par
+| 3).\par
+...\par
+  |==================================================        |  87%\par
+| Use the which() function to find the indices of ints that are\par
+| greater than 7.\par
+> which(ints>7)\par
+[1] 2 4 9\par
+| That's correct!\par
+  |===================================================       |  88%\par
+| Which of the following commands would produce the indices of the\par
+| elements in ints that are less than or equal to 2?\par
+1: ints < 2\par
+2: which(ints < 2)\par
+3: which(ints <= 2)\par
+4: ints <= 2\par
+Selection: 3\par
+| Nice work!\par
+  |====================================================      |  90%\par
+| Like the which() function, the functions any() and all() take\par
+| logical vectors as their argument. The any() function will return\par
+| TRUE if one or more of the elements in the logical vector is\par
+| TRUE. The all() function will return TRUE if every element in the\par
+| logical vector is TRUE.\par
+...\par
+  |======================================================    |  92%\par
+| Use the any() function to see if any of the elements of ints are\par
+| less than zero.\par
+> any(ints<0)\par
+[1] FALSE\par
+| Perseverance, that's the answer.\par
+  |=======================================================   |  94%\par
+| Use the all() function to see if all of the elements of ints are\par
+| greater than zero.\par
+> all(ints>0)\par
+[1] TRUE\par
+| That's the answer I was looking for.\par
+  |========================================================  |  96%\par
+| Which of the following evaluates to TRUE?\par
+1: all(c(TRUE, FALSE, TRUE))\par
+2: any(ints == 2.5)\par
+3: all(ints == 10)\par
+4: any(ints == 10)\par
+Selection: 4\par
+| Great job!\par
+  |========================================================= |  98%\par
+| That's all for this introduction to logic in R. If you really\par
+| want to see what you can do with logic, check out the control\par
+| flow lesson!\par
+...\par
+  |==========================================================| 100%\par
+}
+ 

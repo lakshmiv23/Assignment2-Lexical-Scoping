@@ -1,0 +1,522 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.14393}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 R_Program _Johns Hopkins University    V.V.L\par
+Swirl Lesson - 11,vapply and sapply\par
+\par
+| Would you like to continue with one of these lessons?\par
+ \par
+1: R Programming lapply and sapply\par
+2: No. Let me start something new.\par
+ \par
+Selection: 2\par
+ \par
+| Please choose a course, or type 0 to exit swirl.\par
+ \par
+1: R Programming\par
+2: Take me to the swirl course repository!\par
+ \par
+Selection: 1\par
+ \par
+| Please choose a lesson, or type 0 to return to course menu.\par
+ \par
+ 1: Basic Building Blocks      2: Workspace and Files     \par
+ 3: Sequences of Numbers       4: Vectors                 \par
+ 5: Missing Values             6: Subsetting Vectors      \par
+ 7: Matrices and Data Frames   8: Logic                   \par
+ 9: Functions                 10: lapply and sapply       \par
+11: vapply and tapply         12: Looking at Data         \par
+13: Simulation                14: Dates and Times         \par
+15: Base Graphics             \par
+ \par
+Selection: 11\par
+ \par
+  |                                                                              |   0%\par
+ \par
+| In the last lesson, you learned about the two most fundamental members of R's *apply\par
+| family of functions: lapply() and sapply(). Both take a list as input, apply a\par
+| function to each element of the list, then combine and return the result. lapply()\par
+| always returns a list, whereas sapply() attempts to simplify the result.\par
+ \par
+...\par
+ \par
+  |===                                                                           |   4%\par
+ \par
+| In this lesson, you'll learn how to use vapply() and tapply(), each of which serves a\par
+| very specific purpose within the Split-Apply-Combine methodology. For consistency,\par
+| we'll use the same dataset we used in the 'lapply and sapply' lesson.\par
+ \par
+...\par
+ \par
+  |======                                                                        |   8%\par
+ \par
+| The Flags dataset from the UCI Machine Learning Repository contains details of\par
+| various nations and their flags. More information may be found here:\par
+| {{\field{\*\fldinst{HYPERLINK http://archive.ics.uci.edu/ml/datasets/Flags }}{\fldrslt{http://archive.ics.uci.edu/ml/datasets/Flags\ul0\cf0}}}}\f0\fs22\par
+ \par
+...\par
+ \par
+  |==========                                                                    |  12%\par
+ \par
+| I've stored the data in a variable called flags. If it's been a while since you\par
+| completed the 'lapply and sapply' lesson, you may want to reacquaint yourself with\par
+| the data by using functions like dim(), head(), str(), and summary() when you return\par
+| to the prompt (>). You can also type viewinfo() at the prompt to bring up some\par
+| documentation for the dataset. Let's get started!\par
+ \par
+...\par
+ \par
+  |=============                                                                 |  17%\par
+ \par
+| As you saw in the last lesson, the unique() function returns a vector of the unique\par
+| values contained in the object passed to it. Therefore, sapply(flags, unique) returns\par
+| a list containing one vector of unique values for each column of the flags dataset.\par
+| Try it again now.\par
+ \par
+> sapply(flags, unique)\par
+$name\par
+  [1] Afghanistan              Albania                  Algeria                 \par
+  [4] American-Samoa           Andorra                  Angola                  \par
+  [7] Anguilla                 Antigua-Barbuda          Argentina               \par
+ [10] Argentine                Australia                Austria                 \par
+ [13] Bahamas                  Bahrain                  Bangladesh              \par
+ [16] Barbados                 Belgium                  Belize                  \par
+ [19] Benin                    Bermuda                  Bhutan                  \par
+ [22] Bolivia                  Botswana                 Brazil                  \par
+ [25] British-Virgin-Isles     Brunei                   Bulgaria                \par
+ [28] Burkina                  Burma                    Burundi                 \par
+ [31] Cameroon                 Canada                   Cape-Verde-Islands      \par
+ [34] Cayman-Islands           Central-African-Republic Chad                    \par
+ [37] Chile                    China                    Colombia                \par
+ [40] Comorro-Islands          Congo                    Cook-Islands            \par
+ [43] Costa-Rica               Cuba                     Cyprus                  \par
+ [46] Czechoslovakia           Denmark                  Djibouti                \par
+ [49] Dominica                 Dominican-Republic       Ecuador                 \par
+ [52] Egypt                    El-Salvador              Equatorial-Guinea       \par
+ [55] Ethiopia                 Faeroes                  Falklands-Malvinas      \par
+ [58] Fiji                     Finland                  France                  \par
+ [61] French-Guiana            French-Polynesia         Gabon                   \par
+ [64] Gambia                   Germany-DDR              Germany-FRG             \par
+ [67] Ghana                    Gibraltar                Greece                  \par
+ [70] Greenland                Grenada                  Guam                    \par
+ [73] Guatemala                Guinea                   Guinea-Bissau           \par
+ [76] Guyana                   Haiti                    Honduras                \par
+ [79] Hong-Kong                Hungary                  Iceland                 \par
+ [82] India                    Indonesia                Iran                    \par
+ [85] Iraq                     Ireland                  Israel                  \par
+ [88] Italy                    Ivory-Coast              Jamaica                 \par
+ [91] Japan                    Jordan                   Kampuchea               \par
+ [94] Kenya                    Kiribati                 Kuwait                  \par
+ [97] Laos                     Lebanon                  Lesotho                 \par
+[100] Liberia                  Libya                    Liechtenstein           \par
+[103] Luxembourg               Malagasy                 Malawi                  \par
+[106] Malaysia                 Maldive-Islands          Mali                    \par
+[109] Malta                    Marianas                 Mauritania              \par
+[112] Mauritius                Mexico                   Micronesia              \par
+[115] Monaco                   Mongolia                 Montserrat              \par
+[118] Morocco                  Mozambique               Nauru                   \par
+[121] Nepal                    Netherlands              Netherlands-Antilles    \par
+[124] New-Zealand              Nicaragua                Niger                   \par
+[127] Nigeria                  Niue                     North-Korea             \par
+[130] North-Yemen              Norway                   Oman                    \par
+[133] Pakistan                 Panama                   Papua-New-Guinea        \par
+[136] Parguay                  Peru                     Philippines             \par
+[139] Poland                   Portugal                 Puerto-Rico             \par
+[142] Qatar                    Romania                  Rwanda                  \par
+[145] San-Marino               Sao-Tome                 Saudi-Arabia            \par
+[148] Senegal                  Seychelles               Sierra-Leone            \par
+[151] Singapore                Soloman-Islands          Somalia                 \par
+[154] South-Africa             South-Korea              South-Yemen             \par
+[157] Spain                    Sri-Lanka                St-Helena               \par
+[160] St-Kitts-Nevis           St-Lucia                 St-Vincent              \par
+[163] Sudan                    Surinam                  Swaziland               \par
+[166] Sweden                   Switzerland              Syria                   \par
+[169] Taiwan                   Tanzania                 Thailand                \par
+[172] Togo                     Tonga                    Trinidad-Tobago         \par
+[175] Tunisia                  Turkey                   Turks-Cocos-Islands     \par
+[178] Tuvalu                   UAE                      Uganda                  \par
+[181] UK                       Uruguay                  US-Virgin-Isles         \par
+[184] USA                      USSR                     Vanuatu                 \par
+[187] Vatican-City             Venezuela                Vietnam                 \par
+[190] Western-Samoa            Yugoslavia               Zaire                   \par
+[193] Zambia                   Zimbabwe                \par
+194 Levels: Afghanistan Albania Algeria American-Samoa Andorra Angola ... Zimbabwe\par
+ \par
+$landmass\par
+[1] 5 3 4 6 1 2\par
+ \par
+$zone\par
+[1] 1 3 2 4\par
+ \par
+$area\par
+  [1]   648    29  2388     0  1247  2777  7690    84    19     1   143    31    23\par
+ [14]   113    47  1099   600  8512     6   111   274   678    28   474  9976     4\par
+ [27]   623  1284   757  9561  1139     2   342    51   115     9   128    43    22\par
+ [40]    49   284  1001    21  1222    12    18   337   547    91   268    10   108\par
+ [53]   249   239   132  2176   109   246    36   215   112    93   103  3268  1904\par
+ [66]  1648   435    70   301   323    11   372    98   181   583   236    30  1760\par
+ [79]     3   587   118   333  1240  1031  1973  1566   447   783   140    41  1267\par
+ [92]   925   121   195   324   212   804    76   463   407  1285   300   313    92\par
+[105]   237    26  2150   196    72   637  1221    99   288   505    66  2506    63\par
+[118]    17   450   185   945   514    57     5   164   781   245   178  9363 22402\par
+[131]    15   912   256   905   753   391\par
+ \par
+$population\par
+ [1]   16    3   20    0    7   28   15    8   90   10    1    6  119    9   35    4\par
+[17]   24    2   11 1008    5   47   31   54   17   61   14  684  157   39   57  118\par
+[33]   13   77   12   56   18   84   48   36   22   29   38   49   45  231  274   60\par
+ \par
+$language\par
+ [1] 10  6  8  1  2  4  3  5  7  9\par
+ \par
+$religion\par
+[1] 2 6 1 0 5 3 4 7\par
+ \par
+$bars\par
+[1] 0 2 3 1 5\par
+ \par
+$stripes\par
+ [1]  3  0  2  1  5  9 11 14  4  6 13  7\par
+ \par
+$colours\par
+[1] 5 3 2 8 6 4 7 1\par
+ \par
+$red\par
+[1] 1 0\par
+ \par
+$green\par
+[1] 1 0\par
+ \par
+$blue\par
+[1] 0 1\par
+ \par
+$gold\par
+[1] 1 0\par
+ \par
+$white\par
+[1] 1 0\par
+ \par
+$black\par
+[1] 1 0\par
+ \par
+$orange\par
+[1] 0 1\par
+ \par
+$mainhue\par
+[1] green  red    blue   gold   white  orange black  brown \par
+Levels: black blue brown gold green orange red white\par
+ \par
+$circles\par
+[1] 0 1 4 2\par
+ \par
+$crosses\par
+[1] 0 1 2\par
+ \par
+$saltires\par
+[1] 0 1\par
+ \par
+$quarters\par
+[1] 0 1 4\par
+ \par
+$sunstars\par
+ [1]  1  0  6 22 14  3  4  5 15 10  7  2  9 50\par
+ \par
+$crescent\par
+[1] 0 1\par
+ \par
+$triangle\par
+[1] 0 1\par
+ \par
+$icon\par
+[1] 1 0\par
+ \par
+$animate\par
+[1] 0 1\par
+ \par
+$text\par
+[1] 0 1\par
+ \par
+$topleft\par
+[1] black  red    green  blue   white  orange gold  \par
+Levels: black blue gold green orange red white\par
+ \par
+$botright\par
+[1] green  red    white  black  blue   gold   orange brown \par
+Levels: black blue brown gold green orange red white\par
+ \par
+ \par
+| You got it right!\par
+ \par
+  |================                                                              |  21%\par
+ \par
+| What if you had forgotten how unique() works and mistakenly thought it returns the\par
+| *number* of unique values contained in the object passed to it? Then you might have\par
+| incorrectly expected sapply(flags, unique) to return a numeric vector, since each\par
+| element of the list returned would contain a single number and sapply() could then\par
+| simplify the result to a vector.\par
+ \par
+...\par
+ \par
+  |====================                                                          |  25%\par
+ \par
+| When working interactively (at the prompt), this is not much of a problem, since you\par
+| see the result immediately and will quickly recognize your mistake. However, when\par
+| working non-interactively (e.g. writing your own functions), a misunderstanding may\par
+| go undetected and cause incorrect results later on. Therefore, you may wish to be\par
+| more careful and that's where vapply() is useful.\par
+ \par
+...\par
+ \par
+  |=======================                                                       |  29%\par
+ \par
+| Whereas sapply() tries to 'guess' the correct format of the result, vapply() allows\par
+| you to specify it explicitly. If the result doesn't match the format you specify,\par
+| vapply() will throw an error, causing the operation to stop. This can prevent\par
+| significant problems in your code that might be caused by getting unexpected return\par
+| values from sapply().\par
+ \par
+...\par
+ \par
+  |==========================                                                    |  33%\par
+ \par
+| Try vapply(flags, unique, numeric(1)), which says that you expect each element of the\par
+| result to be a numeric vector of length 1. Since this is NOT actually the case, YOU\par
+| WILL GET AN ERROR. Once you get the error, type ok() to continue to the next\par
+| question.\par
+ \par
+> vapply(flags, unique, numeric(1))\par
+Error in vapply(flags, unique, numeric(1)) : values must be length 1,\par
+ but FUN(X[[1]]) result is length 194\par
+> ok()\par
+ \par
+| Excellent job!\par
+ \par
+  |=============================                                                 |  38%\par
+ \par
+| Recall from the previous lesson that sapply(flags, class) will return a character\par
+| vector containing the class of each column in the dataset. Try that again now to see\par
+| the result.\par
+ \par
+> sapply(flags, class)\par
+      name   landmass       zone       area population   language   religion       bars \par
+  "factor"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer" \par
+   stripes    colours        red      green       blue       gold      white      black \par
+ "integer"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer" \par
+    orange    mainhue    circles    crosses   saltires   quarters   sunstars   crescent \par
+ "integer"   "factor"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer" \par
+  triangle       icon    animate       text    topleft   botright \par
+ "integer"  "integer"  "integer"  "integer"   "factor"   "factor" \par
+ \par
+| You're the best!\par
+ \par
+  |================================                                              |  42%\par
+ \par
+| If we wish to be explicit about the format of the result we expect, we can use\par
+| vapply(flags, class, character(1)). The 'character(1)' argument tells R that we\par
+| expect the class function to return a character vector of length 1 when applied to\par
+| EACH column of the flags dataset. Try it now.\par
+ \par
+> vapply(flags, class, character(1))\par
+      name   landmass       zone       area population   language   religion       bars \par
+  "factor"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer" \par
+   stripes    colours        red      green       blue       gold      white      black \par
+ "integer"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer" \par
+    orange    mainhue    circles    crosses   saltires   quarters   sunstars   crescent \par
+ "integer"   "factor"  "integer"  "integer"  "integer"  "integer"  "integer"  "integer" \par
+  triangle       icon    animate       text    topleft   botright \par
+ "integer"  "integer"  "integer"  "integer"   "factor"   "factor" \par
+ \par
+| Keep up the great work!\par
+ \par
+  |====================================                                          |  46%\par
+ \par
+| Note that since our expectation was correct (i.e. character(1)), the vapply() result\par
+| is identical to the sapply() result -- a character vector of column classes.\par
+ \par
+...\par
+ \par
+  |=======================================                                       |  50%\par
+ \par
+| You might think of vapply() as being 'safer' than sapply(), since it requires you to\par
+| specify the format of the output in advance, instead of just allowing R to 'guess'\par
+| what you wanted. In addition, vapply() may perform faster than sapply() for large\par
+| datasets. However, when doing data analysis interactively (at the prompt), sapply()\par
+| saves you some typing and will often be good enough.\par
+ \par
+...\par
+ \par
+  |==========================================                                    |  54%\par
+ \par
+| As a data analyst, you'll often wish to split your data up into groups based on the\par
+| value of some variable, then apply a function to the members of each group. The next\par
+| function we'll look at, tapply(), does exactly that.\par
+ \par
+...\par
+ \par
+  |=============================================                                 |  58%\par
+ \par
+| Use ?tapply to pull up the documentation.\par
+ \par
+> ?tapply\par
+ \par
+| You are really on a roll!\par
+ \par
+  |=================================================                             |  62%\par
+ \par
+| The 'landmass' variable in our dataset takes on integer values between 1 and 6, each\par
+| of which represents a different part of the world. Use table(flags$landmass) to see\par
+| how many flags/countries fall into each group.\par
+ \par
+> table(flags$landmass)\par
+ \par
+ 1  2  3  4  5  6 \par
+31 17 35 52 39 20 \par
+ \par
+| You are quite good my friend!\par
+ \par
+  |====================================================                          |  67%\par
+ \par
+| The 'animate' variable in our dataset takes the value 1 if a country's flag contains\par
+| an animate image (e.g. an eagle, a tree, a human hand) and 0 otherwise. Use\par
+| table(flags$animate) to see how many flags contain an animate image.\par
+ \par
+> table(flags$animate)\par
+ \par
+  0   1 \par
+155  39 \par
+ \par
+| That's correct!\par
+ \par
+  |=======================================================                       |  71%\par
+ \par
+| This tells us that 39 flags contain an animate object (animate = 1) and 155 do not\par
+| (animate = 0).\par
+ \par
+...\par
+ \par
+  |==========================================================                    |  75%\par
+ \par
+| If you take the arithmetic mean of a bunch of 0s and 1s, you get the proportion of\par
+| 1s. Use tapply(flags$animate, flags$landmass, mean) to apply the mean function to the\par
+| 'animate' variable separately for each of the six landmass groups, thus giving us the\par
+| proportion of flags containing an animate image WITHIN each landmass group.\par
+ \par
+> tapply(flags$animate, flag$landmass, mean)\par
+Error in tapply(flags$animate, flag$landmass, mean) : \par
+  object 'flag' not found\par
+> tapply(flags$animate, flags$landmass, mean)\par
+        1         2         3         4         5         6 \par
+0.4193548 0.1764706 0.1142857 0.1346154 0.1538462 0.3000000 \par
+ \par
+| Keep working like that and you'll get there!\par
+ \par
+  |==============================================================                |  79%\par
+ \par
+| The first landmass group (landmass = 1) corresponds to North America and contains the\par
+| highest proportion of flags with an animate image (0.4194).\par
+ \par
+...\par
+ \par
+  |=================================================================             |  83%\par
+ \par
+| Similarly, we can look at a summary of population values (in round millions) for\par
+| countries with and without the color red on their flag with tapply(flags$population,\par
+| flags$red, summary).\par
+ \par
+> tapply(flags$population, flags$red, summary)\par
+$`0`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+   0.00    0.00    3.00   27.63    9.00  684.00 \par
+ \par
+$`1`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+    0.0     0.0     4.0    22.1    15.0  1008.0 \par
+ \par
+ \par
+| You are amazing!\par
+ \par
+  |====================================================================          |  88%\par
+ \par
+| What is the median population (in millions) for countries *without* the color red on\par
+| their flag?\par
+ \par
+1: 4.0\par
+2: 22.1\par
+3: 9.0\par
+4: 27.6\par
+5: 3.0\par
+6: 0.0\par
+ \par
+Selection: 5\par
+ \par
+| You are really on a roll!\par
+ \par
+  |========================================================================      |  92%\par
+ \par
+| Lastly, use the same approach to look at a summary of population values for each of\par
+| the six landmasses.\par
+ \par
+> tapply(flags$population, flags$landmass, summary)\par
+$`1`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+   0.00    0.00    0.00   12.29    4.50  231.00 \par
+ \par
+$`2`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+   0.00    1.00    6.00   15.71   15.00  119.00 \par
+ \par
+$`3`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+   0.00    0.00    8.00   13.86   16.00   61.00 \par
+ \par
+$`4`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+  0.000   1.000   5.000   8.788   9.750  56.000 \par
+ \par
+$`5`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+   0.00    2.00   10.00   69.18   39.00 1008.00 \par
+ \par
+$`6`\par
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \par
+   0.00    0.00    0.00   11.30    1.25  157.00 \par
+ \par
+ \par
+| Keep up the great work!\par
+ \par
+  |===========================================================================   |  96%\par
+ \par
+| What is the maximum population (in millions) for the fourth landmass group (Africa)?\par
+ \par
+1: 5.00\par
+2: 56.00\par
+3: 1010.0\par
+4: 157.00\par
+5: 119.0\par
+ \par
+Selection: 2\par
+ \par
+| That's correct!\par
+ \par
+  |==============================================================================| 100%\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+}
+ 
